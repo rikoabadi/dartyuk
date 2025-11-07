@@ -14,3 +14,11 @@ build/
 
 # Test related files
 coverage/
+
+# SQLite database files
+*.db
+*.db-shm
+*.db-wal
+
+# Data directory
+data/
