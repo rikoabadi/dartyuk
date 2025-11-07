@@ -147,16 +147,17 @@ class TodoRepository {
     }
 
     final setClauses = <String>[];
-    final params = <Object>[];
+    final params = <Object?>[];
 
     if (updates.containsKey('title')) {
       setClauses.add('title = ?');
-      params.add(updates['title'] as Object);
+      params.add(updates['title']);
     }
 
     if (updates.containsKey('description')) {
       setClauses.add('description = ?');
-      params.add(updates['description'] as Object? ?? '');
+      // Allow null to be stored as null in the database
+      params.add(updates['description']);
     }
 
     if (updates.containsKey('completed')) {

@@ -4,8 +4,8 @@ FROM dart:stable AS build
 WORKDIR /app
 
 # Copy pubspec files and install dependencies
-COPY pubspec.yaml pubspec.lock ./
-RUN dart pub get
+COPY pubspec.yaml ./
+RUN dart pub get --offline || dart pub get
 
 # Copy the rest of the application
 COPY . .
@@ -16,7 +16,13 @@ RUN dart pub global activate dart_frog_cli && \
     dart_frog build
 
 # Stage 2: Runtime
-FROM dart:stable-slim AS runtime
+FROM debian:bookworm-slim AS runtime
+
+# Install required runtime dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 

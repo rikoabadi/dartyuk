@@ -53,9 +53,9 @@ class Validator {
       final title = data['title'] as String;
       if (title.isEmpty) {
         errors.add(ValidationError('title', 'Title cannot be empty'));
-      } else if (title.length < 1 || title.length > 200) {
+      } else if (title.length > 200) {
         errors.add(
-          ValidationError('title', 'Title must be between 1 and 200 characters'),
+          ValidationError('title', 'Title must be at most 200 characters'),
         );
       }
     }
@@ -112,9 +112,9 @@ class Validator {
         final title = data['title'] as String;
         if (title.isEmpty) {
           errors.add(ValidationError('title', 'Title cannot be empty'));
-        } else if (title.length < 1 || title.length > 200) {
+        } else if (title.length > 200) {
           errors.add(
-            ValidationError('title', 'Title must be between 1 and 200 characters'),
+            ValidationError('title', 'Title must be at most 200 characters'),
           );
         }
       }
